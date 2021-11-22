@@ -1,0 +1,8 @@
+numpy
+pandas
+padelpy
+rdkit-pypi
+chembl_webresource_client
+sklearn
+matplotlib
+seaborn

@@ -1,0 +1,36 @@
+#Biometric data
+*.log
+*.csv
+*.smi
+*.pkl
+*.png
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST.in
+pyproject.toml
+
+# Jupyter Notebook
+.ipynb_checkpoints
+env.py
