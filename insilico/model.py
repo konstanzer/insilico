@@ -9,14 +9,12 @@
 #
 
 import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.feature_selection import VarianceThreshold
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.metrics import mean_absolute_error, r2_score
-
 
 class ModelChembl:
 	'''Predict pIC50 based on ChEMBL fingerprint and target protein used.
@@ -25,7 +23,6 @@ class ModelChembl:
 		var_threshold: Drop columns if variance is less than this (float)
 		test_size: Proportion of data to use in test set (float)
 	'''
-
 	def __init__(self, df, var_threshold=0.15, test_size=0.2):
 
 		df_model = df.copy()
@@ -53,7 +50,6 @@ class ModelChembl:
 		tree.fit(self.X_train, self.y_train)
 
 		return tree, tree.predict(self.X_test)
-
 
 	def evaluate(self, predictions):
 		'''Return metrics and print residual plots for a model.
@@ -85,7 +81,6 @@ class ModelChembl:
 						r_squared=round(r2_score(self.y_test, predictions),5))
 
 		return metrics
-
 
 	def get_data(self):
 		'''For use with models outside of class.'''

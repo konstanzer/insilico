@@ -1,1 +1,1 @@
-Files saved here will be overwritten by later runs.
+Fingerprints saved here.

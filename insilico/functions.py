@@ -19,8 +19,6 @@ import seaborn as sns
 from os.path import abspath, dirname, join
 
 _DIRECTORY_PATH = abspath(dirname(__file__))
-_DATA_PATH = abspath(join(_DIRECTORY_PATH, 'data'))
-
 
 def target_search(drug_target):
 	'''Search ChEMBL for target protein and output search results.
@@ -30,7 +28,6 @@ def target_search(drug_target):
 	results = new_client.target.search(drug_target)
 
 	return pd.DataFrame(results).drop(columns=['cross_references'])
-
 
 def process_target_data(chembl_id, fp="PubchemFingerprinter", standard_type='IC50'):
 	'''Query ChEMBL database for the given CHEMBL molecule ID, which can be found
@@ -47,7 +44,6 @@ def process_target_data(chembl_id, fp="PubchemFingerprinter", standard_type='IC5
 	return df.merge(_compute_fingerprints(chembl_id, df, fp),
 					left_on='molecule_chembl_id', right_on='Name')
 
-
 def query_chembl(chembl_id, standard_type):
 	'''Query ChEMBL database and return data for the given target.
 	Args:
@@ -62,7 +58,6 @@ def query_chembl(chembl_id, standard_type):
 	print(f'Query returned {len(df)} molecules for ' + chembl_id)
 
 	return df[['molecule_chembl_id', 'canonical_smiles', 'standard_value']]
-
 
 def _bioactivity_class(df):
 	'''Divide compounds into potency classes.
@@ -81,7 +76,6 @@ def _bioactivity_class(df):
 
 	return df
 
-
 def _lipinski(df):
 	'''Using SMILES notation, returns the four parameters described by
 		Lipinski's Rule of Five in dataframe.
@@ -98,7 +92,6 @@ def _lipinski(df):
 	df = pd.concat([df, descriptors], axis=1)
 
 	return df
-
 
 def _pIC50(df):
 	'''Convert IC50 to pIC50 scale and capping input at 100M,
@@ -118,7 +111,6 @@ def _pIC50(df):
 
 	return df
 
-
 def _compute_fingerprints(chembl_id, df, fp):
 	'''Computes and outputs the molecule's binary substructure fingerprint.
 	Args:
@@ -129,30 +121,22 @@ def _compute_fingerprints(chembl_id, df, fp):
 		Dataframe of chemical fingerprint.
 	'''
 	#input file with SMILES notation
-	input_file = join(_DATA_PATH, "molecule.smi")
+	input_file = join(_DIRECTORY_PATH, "data", "molecule.smi")
 	df_selection = df[['canonical_smiles','molecule_chembl_id']]
 	df_selection.to_csv(input_file, sep='\t', index=False, header=False)
 
 	#output file for fingerprint results
-	output_file = join(_DATA_PATH, chembl_id+"_fingerprint.csv")
+	output_file = join(_DIRECTORY_PATH, "data", chembl_id+"_fingerprint.csv")
 	#path to fingerprinter XML file (obtained at github.com/dataprofessor/padel)
 	descriptortype = join(_DIRECTORY_PATH, "fingerprints_xml", fp+".xml")
 	
 	print('Computing fingerprints (takes several minutes if molecule count 1000+)...')
-	padeldescriptor(mol_dir=input_file,
-					d_file=output_file,
-					descriptortypes=descriptortype,
-					detectaromaticity=True, 
-					standardizenitro=True, 
-					standardizetautomers=True,
-					threads=2, 
-					removesalt=True,
-					log=False,
-					fingerprints=True)
+	padeldescriptor(mol_dir=input_file, d_file=output_file, descriptortypes=descriptortype,
+					detectaromaticity=True, standardizenitro=True, standardizetautomers=True,
+					threads=2, removesalt=True,log=False,fingerprints=True)
 	print('Success!')
 
 	return pd.read_csv(output_file) #load fingerprint from file
-
 
 def plot_descriptors(df):
 	'''Drop intermediate class and plot chemical space &

@@ -40,7 +40,7 @@ Using the chemical fingerprint, the `ModelChembl` class creates a decision tree 
 When calling the `tree` function, you may specify max tree depth and cost-complexity alpha, hyperparameters to control overfitting.
 
 ```python
-from insilico import target_search, process_target_data, Model
+from insilico import target_search, process_target_data, ModelChembl
 
 # return search results for 'P. falciparum D6'
 result = target_search('P. falciparum D6')
