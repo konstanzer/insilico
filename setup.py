@@ -4,7 +4,7 @@ long_description = open("README.md").read()
 
 setup(
     name='insilico',
-    version='0.1.1',
+    version='0.1.2',
     description='A Python package to process & model ChEMBL data.',
     long_description_content_type="text/markdown",
     long_description=long_description,
