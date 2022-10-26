@@ -71,12 +71,6 @@ Valid fingerprinters are "PubchemFingerprinter" (default), "ExtendedFingerprinte
 df = process_target_data('CHEMBL2367107', fp='SubstructureFingerprinter')
 ```
 
-## Contributing, Reporting Issues & Support
-
-Make a pull request if you'd like to contribute to `insilico`. Contributions should include tests for new features added and documentation. File an issue to report problems with the software or feature requests. Include information such as error messages, your OS/environment and Python version.
-
-Questions may be sent to Steven Newton (steven.j.newton99@gmail.com).
-
 ## References
 
 [Bioinformatics Project from Scratch: Drug Discovery](https://www.youtube.com/watch?v=plVLRashaA8&list=PLtqF5YXg7GLlQJUv9XJ3RWdd5VYGwBHrP) by Chanin Nantasenamat
